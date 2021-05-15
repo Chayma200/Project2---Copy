@@ -1,0 +1,34 @@
+<!--<div class="main-slider">
+  <div class="swiper-container h-60" [swiper]="config">
+    <div class="swiper-wrapper h-60">
+      <div *ngFor="let slide of slides" class="swiper-slide" >
+        <div [attr.data-background]="slide.image" class="slide-item swiper-lazy">
+          <div class="container sl-wrap">
+            <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+            <div fxLayout="column" fxLayoutAlign="center left" class="content">
+              <h1>{{slide.title}}</h1>
+              <h3>{{slide.subtitle}}</h3>
+              <button mat-raised-button color="primary">Shop now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-pagination white"></div>
+    <button mat-mini-fab color="primary" class="swiper-button-prev swipe-arrow"><mat-icon>keyboard_arrow_left</mat-icon></button>
+    <button mat-mini-fab color="primary" class="swiper-button-next swipe-arrow"><mat-icon>keyboard_arrow_right</mat-icon></button>
+  </div>
+</div>-->
+
+
+<owl-carousel-o [options]="customOptions">
+  <ng-template carouselSlide>
+    <img src="https://www.rudraitstore.com/wp-content/uploads/2021/04/lenovo.jpg" alt="Dell Image" style="height:410px;"/>
+  </ng-template>
+  <ng-template carouselSlide>
+    <img src="https://consumer-img.huawei.com/content/dam/huawei-cbg-site/en/mkt/plp/headphones/02-list-freebuds-studio-v1.jpg" alt="headphones" style="height:410px;"/>
+  </ng-template>
+  <ng-template carouselSlide>
+    <img src="https://res.cloudinary.com/trunk-club/image/upload/f_auto,q_100,w_600/v1540492479/public_site/blog/2018-11_Blog_TCM_GreatOutdoors_Inline_1.jpg" alt="Outdoor outfit" style="height:410px;"/>
+  </ng-template>
+</owl-carousel-o>

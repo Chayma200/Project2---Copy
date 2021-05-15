@@ -1,0 +1,214 @@
+<style>
+  body {
+    padding-left: 30px;
+  }
+  mat-form-field {
+    width: 400px;
+  }
+  @-webkit-keyframes mover {
+    0% {
+      transform: translateY(0);
+    }
+
+    100% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes mover {
+    0% {
+      transform: translateY(0);
+    }
+
+    100% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @media (max-width: 767px){
+    mat-form-field{
+      width: 200px;
+    }
+  }
+</style>
+
+<app-my-account></app-my-account>
+
+<mat-horizontal-stepper #stepper>
+  <mat-step label="Add Item" errorMessage="Add Item is required.">
+    <form [formGroup]="addItemForm" (ngSubmit)="onSubmit()">
+      <ng-template matStepLabel>Add Item</ng-template>
+
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Item Name</mat-label>
+          <input matInput formControlName="ItemName" required>
+        </mat-form-field>
+      </div>
+      <br />
+      <!--<div>
+        <mat-form-field appearance="outline">
+          <mat-label>Company Name</mat-label>
+          <input matInput formControlName="CompanyName" required>
+        </mat-form-field>
+      </div>-->
+      <br />
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Item Description</mat-label>
+          <textarea matInput formControlName="ItemDescription" required></textarea>
+        </mat-form-field>
+      </div>
+      <br />
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Shipping Cost</mat-label>
+          <input matInput formControlName="shippingCost" required>
+        </mat-form-field>
+      </div>
+      <br />
+    <div>
+      <div class="col-md-3">
+        <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" (click)="$event.target.value=null" accept="image/*" required style="display:none;">
+        <button type="button" class="btn btn-success" (click)="file.click()">Upload Item Main Image</button>
+      </div>
+      <div class="col-md-4" style="color:green;">
+        <span class="upload" *ngIf="mainimageprogress > 0">
+          {{mainimageprogress}}%
+        </span>
+        <span class="upload" *ngIf="mainimagemessage">
+          {{mainimagemessage}}
+        </span>
+      </div>
+      <div class="col-md-4" *ngIf="errorupload" style="color:red;">
+        <span class="upload">
+          {{imagemessage}}
+        </span>
+      </div>
+      <img [src]="mainimageurl" *ngIf="mainimageurl" style="width:190px; height:200px;">
+    </div>
+
+      <br />
+
+      <h4>Select the categories you wish to add your item to:</h4>
+      <div style="margin-left:40px; margin-top:20px;">
+        <div *ngFor="let cat of categories">
+          <label>
+            <input type="checkbox" class="custom-input" formArrayName="categories" (change)="onChange(cat, $event.target.checked)" />
+            {{ cat.category_nameEN }}
+          </label>
+        </div>
+      </div>
+      <br />
+  
+      <div style="margin-bottom:15px;" *ngIf="subcategories.length > 0">
+        <h4>Select the Subcategories you wish to add your item to:</h4>
+        <div style="margin-left:30px; margin-top:10px;">
+          <div *ngFor="let sub of subcategories">
+            <div *ngFor="let s of sub" style="display: inline; margin-left:10px;">
+              <label>
+                <input type="checkbox" class="custom-input" formArrayName="subCategories" (change)="change(s, $event.target.checked)" />
+                {{ s?.subCategory_NameEN }}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:15px;"><h4>Add Types and values for your Item:</h4></div>
+      <div style="margin-top:10px;">
+        <div *ngFor="let obj of dataarray; let i=index;">
+          <mat-form-field appearance="outline">
+            <mat-label>Item Characteristic Type</mat-label>
+            <input matInput formArrayName="characteristicTypes" (blur)="onBlurMethod($event.target.value)" name="obj.type{{i}}" placeholder="Ex: Size" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="margin-left:40px;">
+            <mat-label>Item Characteristic Value</mat-label>
+            <!--give it an id or check if the type already exist do not add it another time-->
+            <input matInput formArrayName="characteristicValues" (blur)="values($event.target.value)" name="obj.value{{i}}" placeholder="Ex: S/M/L/XL/XXL" required />
+          </mat-form-field>
+
+          <button mat-flat-button *ngIf="i!=0" (click)="remove(i)" style="margin-left:10px;" color="warn">X</button>
+        </div>
+      </div>
+      <div>
+        <span>Please separate the values by a slash (/)</span>
+      </div>
+      <button mat-raised-button type="button" (click)="add()" color="primary" style="margin-top:10px;">Add Types and Values</button>
+
+      <div>
+        <button mat-button matStepperNext color="primary" type="submit" style="margin-top:10px;">Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step label="Add SKUs" errorMessage="Add Item SKU is required.">
+    <form [formGroup]="addSKUsForm" (ngSubmit)="onSubmitSKU()" #ItemSKUForm>
+      <!--<div *ngFor="let x of skuarray">-->
+        <div *ngFor="let type of ty; let i = index" style="display: inline;">
+          <mat-form-field appearance="outline" style="width:250px; padding: 8px 20px 10px 10px;">
+            <mat-label>{{type.CharType}}</mat-label>
+            <mat-select id="selectValues" formArrayName="values">
+              <mat-option value="Select a value">Please Select a Value</mat-option>
+              <mat-option (onSelectionChange)="onChangeValue($event)" *ngFor="let vx of vl[i].CharValue" [value]="vx">{{vx}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="outline" style="width:250px; padding: 8px 20px 10px 10px;">
+            <mat-label>Price</mat-label>
+            <input matInput formControlName="price" required />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="width:250px; padding: 8px 20px 10px 10px;">
+            <mat-label>Quantity</mat-label>
+            <input matInput formControlName="quantity" required />
+          </mat-form-field>
+
+          <!--<div>
+            <div class="col-md-3">-->
+              <input type="file" #filesku placeholder="Choose file" #imagesku (change)="uploadFileSKU(filesku.files)" accept="image/*" (click)="$event.target.value=null" required style="display:none;">
+              <button type="button" class="btn btn-success" (click)="filesku.click()">Upload SKU Image</button>
+            </div>
+            <div class="col-md-4" style="color:green;">
+              <span class="upload" *ngIf="skuimageprogress > 0">
+                {{skuimageprogress}}%
+              </span>
+              <span class="upload" *ngIf="skuimagemessage">
+                {{skuimagemessage}}
+              </span>
+            </div>
+            <div class="col-md-4" *ngIf="erroruploadsku" style="color:red;">
+              <span class="upload">
+                {{skuimagerroremessage}}
+              </span>
+            </div>
+            <img [src]="skuurl" *ngIf="skuurl" style="width:190px; height:200px;">
+          <!--</div>-->
+          <!--<button mat-flat-button *ngIf="i!=0" (click)="removeSKU(x)" style="margin-left:10px;" color="warn">X</button>-->
+        <!--</div>-->
+
+            <div>
+              <button mat-raised-button type="button" (click)="addSKU()" color="primary" style="margin-top:10px; margin-left:30px;">Add SKU</button>
+            </div>
+  <!--</div>-->
+        <div style="margin-top:40px; padding: 8px 2px 10px 2px;">
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext type="submit">Next</button>
+        </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <div *ngIf="success" style="color:green;text-align:center">
+      {{successMessage}}
+    </div>
+    <div *ngIf="error" style="color:red;text-align:center">
+      {{errorMessage}}
+    </div>
+    <div style="margin-top:25px;">
+      <button mat-raised-button color="primary" type="button" (click)="addAnotherItem()">Add Another Item</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+

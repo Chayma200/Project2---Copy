@@ -1,0 +1,89 @@
+<app-my-account></app-my-account>
+
+<style>
+  .content-container {
+    margin-left: 40px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    padding: 60px 40px 30px 30px;
+    padding-left: 150px;
+  }
+
+  h4 {
+    text-align: center;
+    padding-bottom: 50px;
+  }
+
+  .input {
+    padding-left: 150px;
+    padding-bottom: 50px;
+  }
+
+  .btn {
+    margin-left: 200px;
+  }
+
+  .message {
+    margin-bottom: 30px;
+    width: 100%;
+    color: green;
+    margin-top: 10px;
+  }
+
+  @media(max-width: 567px) {
+    .content-container {
+      padding: 6px;
+    }
+
+    h4 {
+      text-align: left;
+    }
+
+    .input {
+      padding-left: 0px;
+    }
+
+    .btn {
+      margin: auto;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .content-container {
+      padding: 6px;
+    }
+
+    h4 {
+      text-align: left;
+    }
+
+    .input {
+      padding-left: 0px;
+    }
+
+    .btn {
+      margin: auto;
+    }
+  }
+</style>
+
+<div class="content-container">
+  <h4>Extend your business by adding a new Category to your store.</h4> <br />
+  <div *ngIf="success" class="alert alert-danger message" role="alert">
+    {{successMessage}}
+  </div>
+  <form [formGroup]="addCategoryForm" (ngSubmit)="onSubmit()">
+    <div class="input">
+      <mat-form-field appearance="outline">
+        <mat-label>Enter new Category</mat-label>
+        <input matInput formControlName="category_nameEN" required />
+      </mat-form-field>
+    </div>
+    <h4>By Submitting, the entered Category will be added to your store.</h4>
+    <button mat-raised-button type="submit" color="primary" class="btn">Add Category</button>
+  </form>
+</div>
+
+
