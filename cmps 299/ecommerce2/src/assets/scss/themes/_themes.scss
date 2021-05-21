@@ -1,0 +1,17 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+// Keep atleast one file
+@import "sophia-teal";
+@import "sophia-blue";
+@import "sophia-light-purple";
+@import "sophia-dark";
+@import "sophia-green";
+@import "sophia-orange";
+@import "sophia-indigo";
+@import "sophia-red";
+@import "sophia-pink";
+@import "sophia-amber";
+
+$background: map-get($sophia-theme, background);
+$foreground: map-get($sophia-theme, foreground);

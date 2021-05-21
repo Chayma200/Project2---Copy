@@ -172,7 +172,6 @@
       .sidebar-navigation li::before {
         background-color: #2574A9;
         position: absolute;
-        content: '';
         height: 100%;
         left: 0;
         top: 0;
@@ -192,10 +191,6 @@
       background-color: #151515;
       padding: 10px 15px 10px 30px;
     }
-
-      .sidebar-navigation .header::before {
-        background-color: transparent;
-      }
 
   mat-expansion-panel {
     background-color: whitesmoke;
@@ -225,37 +220,37 @@
   </div>
   <ul class="sidebar-navigation">
     <li>
-      <button mat-button [routerLink]="['/home/']" routerLinkActive="active">
+      <button mat-flat-button style="background-color: whitesmoke;" [routerLink]="['/home/']" routerLinkActive="active">
         <i class="fa fa-home" aria-hidden="true"></i> Homepage
       </button>
     </li>
     <li>
-      <button mat-button [routerLink]="['/pages/my-account']" routerLinkActive="router-link-active">
+      <button mat-flat-button style="background-color: whitesmoke;" [routerLink]="['/pages/my-account']" routerLinkActive="router-link-active">
         <i class="fa fa-tachometer" aria-hidden="true"></i> My Account
       </button>
     </li>
 
     <li>
-      <button mat-button (click)="goToPersonalInventory()"><i class="fa fa-id-badge"></i>Personal Inventory</button>
+      <button mat-flat-button style="background-color: whitesmoke;" (click)="goToPersonalInventory()"><i class="fa fa-id-badge"></i>Personal Inventory</button>
     </li>
 
     <li>
-      <button mat-button [routerLink]="['my-products']" routerLinkActive="active"><i class="fa fa-product-hunt"></i>My Products</button>
+      <button mat-flat-button style="background-color: whitesmoke;" [routerLink]="['my-products']" routerLinkActive="active"><i class="fa fa-product-hunt"></i>My Products</button>
     </li>
 
     <li>
-      <button mat-button (click)="goToAddItem()">
+      <button mat-flat-button style="background-color: whitesmoke;" (click)="goToAddItem()">
         <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Item
       </button>
     </li>
     <li>
-      <button mat-button [routerLink]="['personal-inventory/add-item']" routerLinkActive="active">
+      <button mat-flat-button style="background-color: whitesmoke;" [routerLink]="['personal-inventory/add-item']" routerLinkActive="active">
         <i class="fa fa-buysellads" aria-hidden="true"></i> Add Advertisement
       </button>
     </li>
 
     <li>
-      <button mat-button (click)="gotoAddItem()">
+      <button mat-flat-button style="background-color: whitesmoke;" (click)="gotoAddItem()">
         <i class="fa fa-percent" aria-hidden="true"></i>Add Promotions
       </button>
     </li>
@@ -271,24 +266,24 @@
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <mat-accordion multi="false">
-                <mat-expansion-panel class="mat-elevation-z0" *ngFor="let category of personalcategories; let i = index">
+                <mat-expansion-panel class="mat-elevation-z0" *ngFor="let category of allcategories; let i = index">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      <button mat-button (click)="onClick(category)">{{category.category_nameEN}}</button>
-                      <button mat-button *ngIf="Done">Add Category</button>
+                      <button mat-flat-button style="background-color: whitesmoke;" (click)="onClick(category)">{{category.category_nameEN}}</button>
+                      <button mat-flat-button style="background-color: whitesmoke;" *ngIf="Done">Add Category</button>
                     </mat-panel-title>
                   </mat-expansion-panel-header>
-                  <ul *ngFor="let s of personalsubcategories[i]">
+                  <ul *ngFor="let s of allsubcategories[i]">
                     <li>
-                      <button mat-button (click)="onSelect(category, s)">{{s.subCategory_NameEN}}</button>
+                      <button mat-flat-button style="background-color: whitesmoke;" (click)="onSelect(category, s)">{{s.subCategory_NameEN}}</button>
                     </li>
                   </ul>
                   <div>
-                    <button mat-button (click)="addSubCategory(category)">Add SubCategory</button>
+                    <button mat-flat-button style="background-color: whitesmoke;" (click)="addSubCategory(category)">Add SubCategory</button>
                   </div>
                 </mat-expansion-panel>
                 <div>
-                  <button mat-button (click)="addCategory()">Add Category</button>
+                  <button mat-flat-button style="background-color: whitesmoke;" (click)="addCategory()">Add Category</button>
                 </div>
               </mat-accordion>
             </mat-expansion-panel>

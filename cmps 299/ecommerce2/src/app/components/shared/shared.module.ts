@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from "@angular/router";
-import { AppSettings } from './services/color-option.service'
-
 import { FlexLayoutModule } from '@angular/flex-layout';
-
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
@@ -25,22 +22,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { MenuComponent } from './menu/menu.component';
-import { OrderByPipe } from './pipes/order-by.pipe';
-import { ProductService } from './services/product.service';
-import { BasketService } from './services/basket.service';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { BannersComponent } from './banners/banners.component';
-import { ShoppingWidgetsComponent } from './shopping-widgets/shopping-widgets.component';
-import { BannersFourComponent } from './banners-four/banners-four.component';
-import { BannerPromotionComponent } from './banner-promotion/banner-promotion.component';
-import { CategoriesMenuComponent } from './categories-menu/categories-menu.component';
-import { CategoriesSectionComponent } from './categories-section/categories-section.component';
 import { MatBadgeModule } from '@angular/material/badge';
-import { ShoppingWidgetsTwoComponent } from './shopping-widgets-two/shopping-widgets-two.component';
-import { ShoppingWidgetsThreeComponent } from './shopping-widgets-three/shopping-widgets-three.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -49,18 +33,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     HeaderComponent,
     FooterComponent,
-    MenuComponent,
-    SidebarComponent,
-    OrderByPipe,
-    BannersComponent,
-    ShoppingWidgetsComponent,
-    BannersFourComponent,
-    BannerPromotionComponent,
-    CategoriesMenuComponent,
-    CategoriesSectionComponent,
-    ShoppingWidgetsTwoComponent,
-    ShoppingWidgetsThreeComponent,
-    BreadcrumbComponent
+    SidebarComponent
   ],
   imports: [
     FormsModule,
@@ -110,27 +83,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatTabsModule,
     MatDividerModule,
     MatCardModule,
-    OrderByPipe,
     HeaderComponent,
     FooterComponent,
-    MenuComponent,
     SidebarComponent,
-    BannersComponent,
     FlexLayoutModule,
-    ShoppingWidgetsComponent,
-    BannersFourComponent,
-    BannerPromotionComponent,
-    CategoriesMenuComponent,
-    CategoriesSectionComponent,
-    ShoppingWidgetsThreeComponent,
-    BreadcrumbComponent,
     MatStepperModule
 
   ],
-  providers: [
-    ProductService,
-    BasketService,
-    AppSettings
-  ]
 })
 export class SharedModule {}

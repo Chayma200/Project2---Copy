@@ -126,7 +126,7 @@ export class RegisterComponent implements OnInit {
       this.exist = true;
       console.log(err);
      });
-    this.route.navigate(['pages/confirm-email']);
+    this.route.navigate(['pages/login']);
 
   }
 }

@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { Product } from 'src/app/modals/product.model';
-import { BasketService } from '../../shared/services/basket.service';
-import { WishlistService } from '../../shared/services/wishlist.service';
-import { HomeComponent } from '../../shop/home/home.component';
-import { RegisterService } from '../register/register.service';
-import { ItemsService } from '../SharedServices/items.service';
+import { ItemsService } from '../../pages/SharedServices/items.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -15,13 +10,9 @@ import { ItemsService } from '../SharedServices/items.service';
 })
 export class WishlistComponent implements OnInit {
 
-  public product: Observable<Product[]> = of([]);
   wishlistItems: Array<any> = new Array();
   userID: string;
-  constructor(private route: ActivatedRoute, private itemsService: ItemsService, private registerService: RegisterService, private basketService: BasketService, private wishlistService: WishlistService) {
-    //this.product = this.wishlistService.getProducts();
-    //this.product.subscribe(products => this.wishlistItems = products);
-  }
+  constructor(private route: ActivatedRoute, private itemsService: ItemsService) {  }
 
   ngOnInit() {
     let userid = this.route.snapshot.paramMap.get("userID");
@@ -35,20 +26,10 @@ export class WishlistComponent implements OnInit {
 
   }
 
-   // Add to cart
-  // public addToBasket(product: Product,  quantity: number = 1) {
-  //  if (quantity > 0)
-  //    this.basketService.addToBasket(product,quantity);
-  //   this.wishlistService.removeFromWishlist(product);
-  //}
-  // Add to cart
-  public addToBasket() {
-    
-  }
-
   // Remove from wishlist
   public removeItem(item) {
-    this.itemsService.removeItemFromWishList(item.itemID, this.userID).subscribe(data => {
+    let itemid = item.item.itemID;
+    this.itemsService.removeItemFromWishList(itemid, this.userID).subscribe(data => {
       if (data === "Item removed from wishList") {
         alert("Item removed from wishList");
       }

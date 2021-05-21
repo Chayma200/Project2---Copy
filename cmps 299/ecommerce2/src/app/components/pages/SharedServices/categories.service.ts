@@ -23,6 +23,10 @@ export class CategoriesService {
     );
   }
 
+  getCategoriesandSubCategories() {
+    return this.http.get(`${this._url}api/Categories/GetCategoriesSubCategories`);
+  }
+
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

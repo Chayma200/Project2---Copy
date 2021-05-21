@@ -21,8 +21,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    //MainComponent
+    AppComponent
   ],
   imports: [
     NgxSpinnerModule,

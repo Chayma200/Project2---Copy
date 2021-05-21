@@ -57,7 +57,7 @@
         </div>
 
           <div class="widget-text">
-            <a fxShow="false" fxShow.gt-xs [routerLink]="['/pages/basket']" routerLinkActive="router-link-active"><mat-icon class="mat-icon-lg mat-icon material-icons mr-10">basket</mat-icon> BASKET</a>
+            <a style="cursor:pointer;" (click)="goToBasket()"><mat-icon class="mat-icon-lg mat-icon material-icons mr-10">shopping_cart</mat-icon> BASKET</a>
           </div>
 
 
@@ -83,10 +83,8 @@
                 <mat-divider style="margin-top:10px;"></mat-divider>
               </div>
               <button mat-menu-item fxShow="false" fxShow.gt-xs (click)="MyAccount()">My Account</button>
-              <!--<a class="nav-link text-dark" [routerLink]="['/my-orders']" style="margin-top:10px;">My Orders</a>
-        <a class="nav-link text-dark" [routerLink]="['/wish-list']" style="margin-top:10px;">My Wish-List</a>
-        <a class="nav-link text-dark" [routerLink]="['/my-coupons']" style="margin-top:10px;">My Coupons</a>
-        <a class="nav-link text-dark" [routerLink]="['/sign-out']" style="margin-top:10px;">Sign Out</a>-->
+              <button mat-menu-item *ngIf="signedin" class="nav-link text-dark" (click)="goToMyOrders()">My Orders</button>
+              <button mat-menu-item *ngIf="signedin" class="nav-link text-dark" (click)="goToWishList()">My Wish List</button>
               <button mat-menu-item *ngIf="signedin" (click)="logout()">Log out</button>
             </mat-menu>
           </div>

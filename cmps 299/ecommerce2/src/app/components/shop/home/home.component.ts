@@ -1,11 +1,9 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SidebarMenuService } from '../../shared/sidebar/sidebar-menu.service';
 import { ItemsService } from '../../pages/SharedServices/items.service';
 import { HttpClient } from '@angular/common/http';
 import { RegisterService } from '../../pages/register/register.service';
-import { delay } from 'rxjs/operators';
-import { BasketService } from '../../shared/services/basket.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,13 +11,11 @@ import { BasketService } from '../../shared/services/basket.service';
 })
 export class HomeComponent implements OnInit {
 
-  p = "";
-  pp = "";
   signedin: boolean = false;
   allitems: {};
   contentLoaded = false;
   public userID = "";
-  constructor(private basketService: BasketService,private registerService: RegisterService, private http: HttpClient, private itemsservice: ItemsService, public router: Router, public sidenavMenuService: SidebarMenuService) { }
+  constructor(private registerService: RegisterService, private http: HttpClient, private itemsservice: ItemsService, public router: Router, public sidenavMenuService: SidebarMenuService) { }
 
 
   ngOnInit() {
@@ -37,17 +33,8 @@ export class HomeComponent implements OnInit {
    
   }
 
-  async getImagePath(imageID: string) {
-    //let galleryURL = "http://localhost:1264/";
-    //return await (await this.http.get(`${galleryURL}api/ImagePath/GetImagePath/${imageID}`, { responseType: "text" }).toPromise()).toString();
-    //data.toString();
-    //this.pp = data;
-    //console.log(data);
-    //return this.pp;
-  }
-
   public addToWishlist(item) {
-    let itemID = item.itemID;
+    let itemID = item.item.itemID;
     this.itemsservice.addItemToWishList(itemID, this.userID).subscribe(data => {
       console.log(data)
       if (data === "Added to wish list") {

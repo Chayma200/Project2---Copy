@@ -1,0 +1,44 @@
+<style>
+  .items{
+    display: flex;
+    flex-direction: row;
+    padding: 10px 8px 10px 8px;
+    flex-wrap:wrap;
+  }
+  .info{
+    width: 220px;
+    padding: 5px 5px 5px 5px;
+  }
+</style>
+
+<div class="container">
+    <div fxLayout="column" fxLayoutAlign="space-around center" *ngIf="orders.length==0">
+      <mat-chip-list>
+        <mat-chip color="warn" selected="true">YOU HAVE NO ORDERS YET.</mat-chip>
+      </mat-chip-list>
+      <div>
+        <a [routerLink]="['/home']" routerLinkActive="router-link-active" mat-raised-button color="primary" class="btn-project mt-20">Continue shopping</a>
+      </div>
+    </div>
+
+    <div *ngIf="orders.length>0">
+      <mat-card class="p-0" *ngFor="let order of orders; let i= index;">
+        <div>
+          <mat-card-title>Order {{i}} Ordered On {{ order.order.updatedOn | slice : 0 : 10}} </mat-card-title>
+          <br />
+          <div *ngFor="let item of order.infoOrderItem" class="items">
+            <div class="info"><h4 class="product-name">Item Name: {{item[1]}}</h4></div>
+            <div class="info">Total Quantity: {{item[3]}}</div>
+            <div class="info">Total Price: {{item[4] | number : '1.2-2'}}$</div>
+            <div class="info">Total Shipping Cost: {{item[0] | number : '1.2-2'}}$</div>
+            <div class="info">Status: <span *ngIf="item[5] == 1">Shipped</span> <span *ngIf="item[5] == 2">Pending</span> <span *ngIf="item[5] == 3">Received</span></div>
+            <div>
+              <div class="p-1">
+                <mat-icon class="close" (click)="removeItem()">close</mat-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+</div>

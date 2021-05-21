@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NgxSpinnerService } from "ngx-spinner";
-import { Settings, AppSettings } from './components/shared/services/color-option.service';
 import { Router, NavigationEnd } from '@angular/router';
 
 
@@ -12,11 +11,9 @@ import { Router, NavigationEnd } from '@angular/router';
 export class AppComponent {
 
   title = 'Ecommerce';
-  public settings: Settings;
   public url : any;
 
-  constructor(private spinner: NgxSpinnerService, public appSettings:AppSettings, public router: Router) {
-    this.settings = this.appSettings.settings;
+  constructor(private spinner: NgxSpinnerService, public router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.url = event.url;

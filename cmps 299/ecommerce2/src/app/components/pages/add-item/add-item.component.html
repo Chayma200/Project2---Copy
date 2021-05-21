@@ -46,13 +46,6 @@
         </mat-form-field>
       </div>
       <br />
-      <!--<div>
-        <mat-form-field appearance="outline">
-          <mat-label>Company Name</mat-label>
-          <input matInput formControlName="CompanyName" required>
-        </mat-form-field>
-      </div>-->
-      <br />
       <div>
         <mat-form-field appearance="outline">
           <mat-label>Item Description</mat-label>
@@ -62,31 +55,37 @@
       <br />
       <div>
         <mat-form-field appearance="outline">
+          <mat-label>Main Price</mat-label>
+          <input matInput formControlName="MainPrice" required>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
           <mat-label>Shipping Cost</mat-label>
           <input matInput formControlName="shippingCost" required>
         </mat-form-field>
       </div>
       <br />
-    <div>
-      <div class="col-md-3">
-        <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" (click)="$event.target.value=null" accept="image/*" required style="display:none;">
-        <button type="button" class="btn btn-success" (click)="file.click()">Upload Item Main Image</button>
+      <div>
+        <div class="col-md-3">
+          <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" (click)="$event.target.value=null" accept="image/*" required style="display:none;">
+          <button type="button" class="btn btn-success" (click)="file.click()">Upload Item Main Image</button>
+        </div>
+        <div class="col-md-4" style="color:green;">
+          <span class="upload" *ngIf="mainimageprogress > 0">
+            {{mainimageprogress}}%
+          </span>
+          <span class="upload" *ngIf="mainimagemessage">
+            {{mainimagemessage}}
+          </span>
+        </div>
+        <div class="col-md-4" *ngIf="errorupload" style="color:red;">
+          <span class="upload">
+            {{imagemessage}}
+          </span>
+        </div>
+        <img [src]="mainimageurl" *ngIf="mainimageurl" style="width:190px; height:200px;">
       </div>
-      <div class="col-md-4" style="color:green;">
-        <span class="upload" *ngIf="mainimageprogress > 0">
-          {{mainimageprogress}}%
-        </span>
-        <span class="upload" *ngIf="mainimagemessage">
-          {{mainimagemessage}}
-        </span>
-      </div>
-      <div class="col-md-4" *ngIf="errorupload" style="color:red;">
-        <span class="upload">
-          {{imagemessage}}
-        </span>
-      </div>
-      <img [src]="mainimageurl" *ngIf="mainimageurl" style="width:190px; height:200px;">
-    </div>
 
       <br />
 
@@ -100,7 +99,7 @@
         </div>
       </div>
       <br />
-  
+
       <div style="margin-bottom:15px;" *ngIf="subcategories.length > 0">
         <h4>Select the Subcategories you wish to add your item to:</h4>
         <div style="margin-left:30px; margin-top:10px;">

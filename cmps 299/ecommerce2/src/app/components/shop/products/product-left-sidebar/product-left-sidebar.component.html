@@ -82,47 +82,13 @@
       </mat-accordion>
     </mat-expansion-panel>
     <!--Categories SubCategories accordion ends-->
-    <!--Brands Panel starts-->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <span>Brands</span>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="brands">
-        <app-brands (brandChanged)="onBrendsChanged($event)"></app-brands>
-      </div>
-    </mat-expansion-panel>
-    <!--Brands panel ends-->
-    <!--Price panel starts-->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <span>Price</span>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <app-price (priceFilters)="updatePriceFilters($event)"></app-price>
-    </mat-expansion-panel>
-    <!--Price panel ends-->
   </mat-accordion>
 </div>
-        <div class="popular-products" fxFlex.lt-md="100">
-          <app-popular-products></app-popular-products>
-        </div>
       </div>
     </div>
-
-          <div *ngIf="allcategories.length > 0" fxLayout="row wrap ">
-                  <div fxFlex="100">
-                    <mat-card class="p-0 text-center no-shadow">
-                      <pagination-controls class="product-pagination" autoHide="true" maxSize="5" (pageChange)="onPageChanged($event)"></pagination-controls>
-                    </mat-card>
-                  </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   </div>
   </div>
-
-   <router-outlet></router-outlet>
+  </div>
+</div>
+<router-outlet></router-outlet>
 

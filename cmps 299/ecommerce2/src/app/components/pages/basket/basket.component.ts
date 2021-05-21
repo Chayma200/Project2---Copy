@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { basketItem } from 'src/app/modals/basket-item';
-import { BasketService } from '../../shared/services/basket.service';
-import { ItemsService } from '../SharedServices/items.service';
-import { Product } from 'src/app/modals/product.model';
-import { RegisterService } from '../register/register.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BasketService } from '../SharedServices/basket.service';
 
 @Component({
   selector: 'app-basket',
@@ -14,75 +9,99 @@ import { RegisterService } from '../register/register.service';
 })
 export class BasketComponent implements OnInit {
 
-  //public product: Observable<Product[]> = of([]);
-  //basketItems: Array<any> = new Array();
-  //userID: string;
-  
-  //constructor(private route: ActivatedRoute, private itemsService: ItemsService, private registerService: RegisterService, private basketService: BasketService) { }
+  basketItems: Array<any> = new Array();
+  userID: string;
+  totalPrice: string;
+  totalShippingCost: string;
+  checkoutdata: {};
+
+  constructor(private basketService: BasketService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    let userid = this.route.snapshot.paramMap.get("userID");
+    this.userID = userid;
+    this.basketService.getItemsinBasket(this.userID).subscribe((data: Array<any>) => {
+      for (let i = 0; i < data.length; i++) {
+        this.basketItems.push(data[i]);
+        console.log(this.basketItems);
+      }
+    });
 
-    //let userid = this.route.snapshot.paramMap.get("userID");
-    //this.userID = userid;
-    //this.basketService.Getitemsinbasket(this.userID).subscribe((data: Array<any>) => {
-    //  for (let i = 0; i < data.length; i++) {
-    //    this.basketItems.push(data[i]);
-    //    console.log(this.basketItems);
-    //  }
-    //});
+    //get the subtotal of the basket
+    this.basketService.getSubtotalPrice(this.userID).subscribe(data => {
+      this.totalPrice = data;
+      console.log(data);
+    });
+    //get the total shipping cost of the basket
+    this.basketService.getTotalShippingCost(this.userID).subscribe(data => this.totalShippingCost = data);
   }
 
-  //// Remove basket items
-  ///*public removeItem(item: basketItem) {
-  //  this.basketService.removeFromBasket(item);
-  //}*/
-
-  //public removefrombasket(item) {
-  //  let SKUID = item.SKUID
-  //  this.basketService.removefrombasket(SKUID, this.userID).subscribe(data => {
-  //    if (data === "Item removed from basket") {
-  //      alert("Item removed from basket");
-  //    }
-  //    else if (data === "Item is not found in the basket") {
-  //      alert("Item is not found in the basket");
-  //    }
-  //    window.location.reload();
-  //  }),
-  //    error => console.log("Error!", error);
-  //}
-
-  //// Increase Product Quantity
-  //public increment(product: any, quantity: number = 1) {
-  //  this.basketService.updateBasketQuantity(product,quantity);
-  //}
-
-  //// Decrease Product Quantity
-  //public decrement(product: any, quantity: number = -1) {
-  //  this.basketService.updateBasketQuantity(product,quantity);
-  //}
-/** 
   // Increase Product Quantity
-  public increment() {
+  public increment(item) {
     const data = {
-      "user": 1,
-      "SKUID": 1,
-    }
-    this.basketService.increaseBasketQuantity(data).subscribe;
+      "user": this.userID,
+      "SKUID": parseInt(item.skuItem.skU_ID)
+    };
+    this.basketService.IncreaseQuantity(data).subscribe(result => console.log(result));
+    window.location.reload();
   }
 
-  // Decrease Product Quantity
-  public decrement() {
+  //Decrease Product Quantity
+  public decrement(item) {
+    console.log(item);
     const data = {
-      "user": 1,
-      "SKUID": 1,
+      "user": this.userID,
+      "SKUID": parseInt(item.skuItem.skU_ID)
     }
-    this.basketService.decreaseBasketQuantity(data).subscribe;
+    this.basketService.DecreaseQuantity(data).subscribe(result =>
+      console.log(result)
+    );
+    window.location.reload();
   }
-*/
-/*
-  // Get Total
-  public getTotal(): Observable<number> {
-    return this.basketService.getTotalAmount();
-  }*/
 
+  goToCheckout() {
+    console.log(this.userID);
+    this.basketService.checkout(this.userID).subscribe((result:Array<any>) => {
+      console.log(result);
+      if (result) {
+        console.log(result);
+        this.router.navigate(["pages/checkout", this.userID, result]).then(() => window.location.reload());
+      }
+      else if (result.toString() == "Cannot Proceed to Checkout!") {
+        alert("Cannot Proceed in your order! Please Try Again!");
+        window.location.reload();
+      }
+      else {
+        let v: Array<any> = new Array();
+        for (let i = 0; i < result.length; i++) {
+          console.log(result[i].info[0]);
+          v.push(result[i].info[0]);
+        }
+        console.log(v);
+        let other = "";
+        for (let j = 0; j<v.length; j++) {
+          other += v + '\n';
+        }
+        alert("The following items are out of stock: \n" + other);
+        window.location.reload();
+      }
+    });
+  }
+
+  removefrombasket(item) {
+    const data = {
+      "user": this.userID,
+      "SKUID": item.skuItem.skU_ID
+    }
+    this.basketService.removeItemFromBasket(data).subscribe(result => console.log(result));
+    alert("The item is removed from the basket!");
+    window.location.reload();
+  }
+
+  removeAllBasketItems() {
+    this.basketService.clearAllItemsInBasket(this.userID).subscribe((data:string) => {
+      console.log(data);
+      alert(data);
+    });
+  }
 }

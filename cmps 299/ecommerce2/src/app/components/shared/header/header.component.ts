@@ -1,11 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Product } from 'src/app/modals/product.model';
-import { basketItem } from 'src/app/modals/basket-item';
-import { BasketService } from '../services/basket.service';
-import { SidebarMenuService } from '../sidebar/sidebar-menu.service';
-import { AppSettings, Settings } from '../services/color-option.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { SearchService } from '../../pages/SharedServices/search.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,14 +11,7 @@ export class HeaderComponent implements OnInit {
 
   SearchForm: FormGroup;
   itemsfromsearch: Array<any> = new Array();
-
-  shoppingbasketItems: basketItem[] = [];
-  public settings: Settings;
-
-  constructor(private router: Router, private BasketService: BasketService, public appSettings: AppSettings) {
-    this.settings = this.appSettings.settings;
-    //this.BasketService.getItems().subscribe(shoppingbasketItems => this.shoppingbasketItems = shoppingbasketItems);
-  }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.SearchForm = new FormGroup({

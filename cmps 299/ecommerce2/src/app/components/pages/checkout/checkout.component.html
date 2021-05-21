@@ -1,0 +1,151 @@
+<div class="checkout">
+  <div fxLayout="row" fxLayout.lt-md="column">
+    <mat-card class="mb-1">
+      <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="billing-details" fxFlex="50">
+
+          <mat-card-title>
+            Billing address
+          </mat-card-title>
+
+          <form fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50" class="mt-20 pr-4" ngClass.sm="mt-10" ngClass.xs="mt-10">
+              <mat-form-field class="w-100">
+                <input matInput placeholder="First name (required)" name="name" required>
+                <!--<mat-error>Please enter a valid message</mat-error>-->
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50" class="pl-5 mt-20" ngClass.sm="mt-10" ngClass.xs="mt-10">
+              <mat-form-field class="w-100">
+                <input matInput placeholder="Last name (required)" name="email" required>
+                <!--<mat-error *ngIf="email.invalid">Please enter a valid message</mat-error>-->
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="100" class="mt-20" ngClass.sm="mt-10" ngClass.xs="mt-10">
+              <mat-form-field class="w-100">
+                <input matInput placeholder="Company name (optional)" name="subject">
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="100" class="mt-20" ngClass.sm="mt-10" ngClass.xs="mt-10">
+              <mat-form-field class="w-100">
+                <input matInput placeholder="Address" name="address">
+                <!--<mat-error *ngIf="address.invalid">Please enter a valid message</mat-error>-->
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="100" class="mt-20" ngClass.sm="mt-10" ngClass.xs="mt-10">
+              <mat-form-field class="w-100">
+                <input matInput placeholder="Town/city" name="town/city">
+                <!--<mat-error *ngIf="town.invalid">Please enter a valid message</mat-error>-->
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50" class="mt-20 pr-4" ngClass.sm="mt-10" ngClass.xs="mt-10">
+              <mat-form-field class="w-100">
+                <input matInput placeholder="State / Country (required)" name="state" required>
+                <!--<mat-error *ngIf="state.invalid">Please enter a valid message</mat-error>-->
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50" class="pl-5 mt-20" ngClass.sm="mt-10" ngClass.xs="mt-10">
+              <mat-form-field class="w-100">
+                <input matInput placeholder="Postcode / zip (required)" name="postcode" required>
+                <!--<mat-error *ngIf="postcode.invalid">Please enter a valid message</mat-error>-->
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50" class="mt-20 pr-4" ngClass.sm="mt-10" ngClass.xs="mt-10">
+              <mat-form-field class="w-100">
+                <input matInput placeholder="Email Address (required)" name="email" required>
+                <!--<mat-error *ngIf="email.invalid">Please enter a valid message</mat-error>-->
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50" class="pl-5 mt-20" ngClass.sm="mt-10" ngClass.xs="mt-10">
+              <mat-form-field class="w-100">
+                <input matInput placeholder="Phone (required)" name="phone" required>
+                <!--<mat-error *ngIf="phone.invalid">Please enter a valid message</mat-error>-->
+              </mat-form-field>
+            </div>
+            <div class="add-info">
+              <h3>Additional information</h3>
+              <p class="text-muted">Order notes (optional)</p>
+
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="100" class="mt-20" ngClass.sm="mt-10" ngClass.xs="mt-10">
+              <mat-form-field class="w-100">
+                <textarea placeholder="Post content" matInput rows="4" name="content"></textarea>
+              </mat-form-field>
+            </div>
+            <div class="button-wrap" fxFlex="100" fxFlex.gt-sm="100" ngClass.sm="mt-1" ngClass.xs="mt-1">
+              <button class="btn-project" mat-raised-button color="primary" type="submit">Submit Review</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </mat-card>
+     <div fxFlex="50">
+      <mat-card class="default">
+        <mat-card-title>
+          Your order
+        </mat-card-title>
+        <mat-card-content class="p-0">
+          <mat-list class="compact-list mb-1">
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <div fxFlex="56px"></div>
+              <div fxLayout="row" fxFlex="100">
+                <h6 class="m-0 mr-1 text-muted">
+                  <small>
+                    <strong>Subtotal:</strong>
+                  </small>
+                </h6>
+                <span fxFlex></span>
+                <div class="text-muted">{{ orderInfo.subtotal }}$</div>
+              </div>
+              <mat-divider></mat-divider>
+            </mat-list-item>
+
+            <mat-list-item>
+              <div fxFlex="56px"></div>
+              <div fxLayout="row" fxFlex="100">
+                <h6 class="m-0 mr-1 text-muted">
+                  <small>
+                    <strong>Shipping:</strong>
+                  </small>
+                </h6>
+                <span fxFlex></span>
+                <div class="text-muted">{{ orderInfo.total_shipping_cost }}$</div>
+              </div>
+              <mat-divider></mat-divider>
+            </mat-list-item>
+
+            <mat-list-item>
+              <div fxFlex="56px"></div>
+              <div fxLayout="row" fxFlex="100">
+                <h6 class="m-0 mr-1 text-muted">
+                  <small>
+                    <strong>Total:</strong>
+                  </small>
+                </h6>
+                <span fxFlex></span>
+                <div class="text-muted">{{ orderInfo.subtotal + orderInfo.total_shipping_cost }}$</div>
+              </div>
+            </mat-list-item>
+          </mat-list>
+
+          <div class="p-1">
+            <mat-radio-group fxLayout="column" fxLayoutGap="8px">
+              <mat-radio-button value="paypal">Paypal</mat-radio-button>
+
+              <mat-radio-button value="card">Credit Card</mat-radio-button>
+
+              <mat-radio-button value="bank">Bank Transfer</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <mat-card-actions>
+            <span fxFlex></span>
+            <button mat-raised-button color="warn" (click)="placeOrder()">Place Order</button>
+          </mat-card-actions>
+        </mat-card-content>
+      </mat-card>
+    </div> 
+  </div>
+</div>

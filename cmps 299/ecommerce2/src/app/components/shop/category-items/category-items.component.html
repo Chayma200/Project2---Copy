@@ -23,7 +23,7 @@
 
   mat-card {
     width: 210px;
-    height: 310px;
+    height: 295px;
     display: flex;
     flex-direction: column;
     padding-left: 5px;
@@ -38,29 +38,19 @@
     <div class="product-item" *ngFor="let catitems of allcategoryitems">
       <mat-card fxLayout="column">
         <div class="product-img">
-          <a class="product-link" [routerLink]="['/home/product', catitems.itemID]">
-            <img src="assets/images/t-shirt.png" style="width:190px; height:190px;" alt="">
+          <a class="product-link" [routerLink]="['/home/product/product-details', catitems.item.itemID]">
+            <img src="{{ catitems.imageURL }}" style="width:200px; height:190px;" alt="">
           </a>
-          <div class="icons" fxLayout="row">
-            <a (click)="addToWishlist(catitems)" class="hvr-icon-pulse-shrink" title="Add to wishlist"><mat-icon class="hvr-icon mat-icon-lg mat-icon material-icons mr-10">favorite_border</mat-icon></a>
-            <a (click)="openProductDialog(catitems)" class="hvr-icon-pulse-shrink" title="View Details" style="margin-left:10px;"><mat-icon class="hvr-icon">remove_red_eye</mat-icon></a>
-            <a (click)="addToBasket(catitems)" class="hvr-icon-pulse-shrink" title="Add to Basket" style="margin-left:18px;"><mat-icon class="mat-icon-lg mat-icon material-icons">shopping_cart</mat-icon></a>
+          <div class="icons" fxLayout="row" style="float: right;">
+            <button mat-flat-button (click)="addToWishlist(catitems)" class="hvr-icon-pulse-shrink" title="Add to wishlist"><mat-icon class="hvr-icon mat-icon-lg mat-icon material-icons mr-10">favorite_border</mat-icon></button>
           </div>
         </div>
         <div class="product-info-wrapper">
-          <!--<span class="category">{{catitems.companyName}}</span>-->
-          <div class="title-wrap">
-            <h4>{{catitems.itemName}}</h4>
-          </div>
-          <div class="stars">
-            <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
-            <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
-            <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
-            <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
-            <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
-          </div>
           <div class="price-wrap" fxLayout="row" fxLayoutAlign="space-between center">
-            <p>{{catitems.shippingCost | currency:productsService?.currency:'symbol'}}</p>
+            <h4>{{catitems.item.mainPrice | currency:productsService?.currency:'symbol'}}</h4>
+          </div>
+          <div class="title-wrap" style="margin-top:5px;">
+            <h4>{{catitems.item.itemName}}</h4>
           </div>
         </div>
       </mat-card>

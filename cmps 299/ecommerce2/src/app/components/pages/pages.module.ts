@@ -1,16 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ContactComponent } from './contact/contact.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
-import { AboutUsComponent } from './about-us/about-us.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { ReviewsComponent } from './reviews/reviews.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { OrderSuccessComponent } from './order-success/order-success.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RegisterComponent } from './register/register.component';
@@ -27,7 +23,6 @@ import { AddItemComponent } from './add-item/add-item.component';
 import { AddtocategoryComponent } from './addtocategory/addtocategory.component';
 import { MyProductsComponent } from './my-account/my-products/my-products.component';
 import { EditProfileComponent } from './my-account/edit-profile/edit-profile.component';
-//import { ChangePasswordComponent } from '../pages/my-account/edit-profile/change-password/change-password.component';
 import { ChangePasswordComponent } from '../pages/change-password/change-password.component';
 import { BasketComponent } from './basket/basket.component';
 
@@ -39,6 +34,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AddCategoryComponent } from '../pages/add-category/add-category.component';
 import { DisplayPersonalCategoryItemsComponent } from './display-personal-category-items/display-personal-category-items.component';
 import { DisplayPersonalSubCategoryItemsComponent } from './display-personal-sub-category-items/display-personal-sub-category-items.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 
 @NgModule({
   imports: [
@@ -59,13 +56,9 @@ import { DisplayPersonalSubCategoryItemsComponent } from './display-personal-sub
   ],
   declarations: [
     BasketComponent,
-    ContactComponent,
     WishlistComponent,
     LoginComponent,
-    AboutUsComponent,
     ErrorPageComponent,
-    ReviewsComponent,
-    OrderSuccessComponent,
     RegisterComponent,
     SellerRegistrationComponent,
     SellerSigninComponent,
@@ -82,7 +75,9 @@ import { DisplayPersonalSubCategoryItemsComponent } from './display-personal-sub
     ConfirmEmailComponent,
     AddCategoryComponent,
     DisplayPersonalCategoryItemsComponent,
-    DisplayPersonalSubCategoryItemsComponent
+    DisplayPersonalSubCategoryItemsComponent,
+    CheckoutComponent,
+    MyOrdersComponent
   ],
   providers: [],
 })

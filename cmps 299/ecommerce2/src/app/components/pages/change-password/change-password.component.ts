@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CustomValidators } from 'ngx-custom-validators';
 import { ChangePasswordService } from '../change-password/change-password.service';
 import { RegisterService } from '../register/register.service';
@@ -23,7 +23,7 @@ export class ChangePasswordComponent implements OnInit {
   hide1 = true;
   hide2 = true;
   changePasswordForm: FormGroup;
-  constructor(private CPservice: ChangePasswordService, private Rservice: RegisterService, /*private toastr: ToastrService,*/ private route: ActivatedRoute) { }
+  constructor(private router: Router, private CPservice: ChangePasswordService, private Rservice: RegisterService, /*private toastr: ToastrService,*/ private route: ActivatedRoute) { }
 
 
   ngOnInit(): void {
@@ -48,6 +48,11 @@ export class ChangePasswordComponent implements OnInit {
         "ConfirmNewPassword": this.changePasswordForm.value.ConfirmNewPassword
       }
       this.CPservice.changePassword(data).subscribe(result => { console.log(result); this.showSuccess = true; this.successMessage = "Password Changed Successfully!" }, error => { this.showError = true; this.errorMessage = "Unable to change password. Try Again!"; })
+      setTimeout(() => {
+        this.router.navigate(["pages/seller-signin"]).then(() => {
+          window.location.reload();
+        }),
+      3000});
     }
   }
 }

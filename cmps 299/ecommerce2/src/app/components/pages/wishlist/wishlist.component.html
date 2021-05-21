@@ -7,17 +7,14 @@
   <div>
     <a [routerLink]="['/home']" routerLinkActive="router-link-active"   mat-raised-button color="primary" class="btn-project mt-20">Continue shopping</a>
   </div>
-
 </div>
 
 <mat-card  class="p-0" *ngIf="wishlistItems.length>0">
-
   <div class="mat-table cart-table">
     <div class="mat-header-row">
       <div class="mat-header-cell">Product</div>
       <div class="mat-header-cell">Name</div>
       <div class="mat-header-cell">Price</div>
-      <div class="mat-header-cell">Basket</div>
       <div class="mat-header-cell text-center">
         <div class="px-1">
           <button mat-raised-button color="warn" (click)="removeAllWishListItems()">Clear All</button>
@@ -25,27 +22,19 @@
       </div>
     </div>
     <div *ngFor="let item of wishlistItems" class="mat-row">
-
-      <div class="mat-cell"><img src="assets/images/t-shirt.png" style="width:100px; height:100px;"></div>
-      <div class="mat-cell" style="font-size:17px;"><a class="product-name">{{item.itemName}}</a></div>
-      <div class="mat-cell price">{{item.shippingCost | number : '1.2-2'}}</div>
-      <div class="mat-cell">
-        <div class="p-1">
-          <button mat-raised-button color="primary" (click)="addToBasket(item)">Add to Basket</button>
-        </div>
-      </div>
+      <div class="mat-cell"><img src="{{ item.imageURL }}" style="width:100px; height:100px;"></div>
+      <div class="mat-cell" style="font-size:17px;"><a class="product-name">{{item.item.itemName}}</a></div>
+      <div class="mat-cell price">{{item.item.mainPrice | number : '1.2-2'}}$</div>
       <div class="mat-cell text-center">
         <div class="p-1">
           <mat-icon class="close" (click)="removeItem(item)">close</mat-icon>
         </div>
       </div>
-
     </div>
   <div class="mat-row">
     <div class="mat-cell"><a [routerLink]="['/home']" routerLinkActive="router-link-active"  mat-raised-button color="primary" class="btn-project">Continue shopping</a></div>
     <div class="mat-cell"></div>
     <div class="mat-cell"></div>
-    <div class="mat-cell text-center"><a [routerLink]="['/pages/checkout']" routerLinkActive="router-link-active" mat-raised-button color="primary" class="btn-project">Proceed To Checkout</a></div> 
     </div>
   </div>
 </mat-card>

@@ -39,7 +39,6 @@ export class AddItemComponent implements OnInit {
   imagemessage: string;
   itemMainImageID: string;
   types = new typesValues();
-  skus = new SKUs();
   skuarray = [];
   ty: Array<any> = new Array();
   vl: Array<any> = new Array();
@@ -64,16 +63,14 @@ export class AddItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataarray.push(this.types);
-    this.skuarray.push(this.skus);
     this.catService.getCategories().subscribe(data => this.categories = data);
     this.registerService.GetCompanyName().subscribe(data => { this.companyName = data; console.log(this.companyName); }, error => console.log(error));
 
     this.addItemForm = new FormGroup({
       ItemName: new FormControl("", Validators.required),
-      //CompanyName: new FormControl("", Validators.required),
+      MainPrice: new FormControl("", Validators.required),
       ItemDescription: new FormControl("", Validators.required),
       shippingCost: new FormControl("", Validators.required),
-      //Main_ImageID: new FormControl("", Validators.required),
       categories: new FormArray([], Validators.required),
       subCategories: new FormArray([], Validators.required),
       characteristicTypes: new FormArray([]),
@@ -83,8 +80,7 @@ export class AddItemComponent implements OnInit {
     this.addSKUsForm = new FormGroup({
       values: new FormArray([], Validators.required),
       price: new FormControl("", Validators.required),
-      quantity: new FormControl("", Validators.required),
-      //Image_ID: new FormControl("", Validators.required)
+      quantity: new FormControl("", Validators.required)
     });
     
   }
@@ -132,7 +128,6 @@ export class AddItemComponent implements OnInit {
         else if (event.type === HttpEventType.Response) {
           this.mainimagemessage = 'Upload success.';
           this.onUploadFinished.emit(event.body);
-          //console.log(event);
           this.itemMainImageID = event.body;
           console.log(this.itemMainImageID);
         }
@@ -175,9 +170,8 @@ export class AddItemComponent implements OnInit {
         else if (event.type === HttpEventType.Response) {
           this.skuimagemessage = 'Upload success.';
           this.onUploadFinished.emit(event.body);
-          //console.log(event);
           this.itemskuImageID = event.body;
-          this.SKUimages.push(this.itemskuImageID);
+          //this.SKUimages.push(this.itemskuImageID);
         }
       });
   }
@@ -229,7 +223,6 @@ export class AddItemComponent implements OnInit {
   onBlurMethod(type: string) {
     const typesArray = <FormArray>this.addItemForm.controls.characteristicTypes;
     if (type != "") {
-      //typesArray.at(i).setValue(new FormControl({ CharType: type}));
       typesArray.push(new FormControl({ CharType: type }));
     }
     else {
@@ -242,7 +235,6 @@ export class AddItemComponent implements OnInit {
     const valuesArray = <FormArray>this.addItemForm.controls.characteristicValues;
     if (value != "") {
       var val = value.split("/");
-      //valuesArray.at(i).setValue(new FormControl({ CharValue: val }));
       valuesArray.push(new FormControl({ CharValue: val }));
     }
     else {
@@ -262,9 +254,9 @@ export class AddItemComponent implements OnInit {
   }
 
   addSKU() {
-    const sku = new SKUs();
-    this.skuarray.push(sku);
+
     let v = new Array();
+    console.log(this.addSKUsForm.value.values);
     for (let x = 0; x < this.addSKUsForm.value.values.length; x++) {
       if (this.addSKUsForm.value.values[x] != null) {
         v.push(this.addSKUsForm.value.values[x].values);
@@ -273,7 +265,13 @@ export class AddItemComponent implements OnInit {
     this.allSKUValues.push(v);
     this.prices.push(parseFloat(this.addSKUsForm.value.price));
     this.quantities.push(parseInt(this.addSKUsForm.value.quantity));
-    this.addSKUsForm.reset();
+    //this.addSKUsForm.reset();
+    this.SKUimages.push(this.itemskuImageID);
+    this.addSKUsForm.controls.values.reset();
+    console.log(this.prices);
+    console.log(this.quantities);
+    console.log(this.allSKUValues);
+    alert("Item SKU submitted successfully! You can add another SKU!");
   }
 
   //Submit the add item form
@@ -304,6 +302,7 @@ export class AddItemComponent implements OnInit {
     const data = {
       "ItemName": this.addItemForm.value.ItemName,
       "CompanyName": this.companyName,
+      "MainPrice": parseFloat(this.addItemForm.value.MainPrice),
       "ItemDescription": this.addItemForm.value.ItemDescription,
       "shippingCost": parseFloat(this.addItemForm.value.shippingCost),
       "Main_ImageID": this.itemMainImageID,

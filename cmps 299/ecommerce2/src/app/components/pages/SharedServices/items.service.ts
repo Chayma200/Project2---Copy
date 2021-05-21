@@ -15,7 +15,19 @@ export class ItemsService {
   }
 
   getItemImage(imageID: string) {
-    return this.http.get(`${this.galleryURL}api/ImagePath/GetImagePath/${imageID}`, { responseType: "text" }).subscribe();
+    return this.http.get(`${this.galleryURL}api/ImagePath/GetImagePath/${imageID}`, { responseType: "text" });
+  }
+
+  //async getItemTypes(itemID: string) {
+  //  return await this.http.get(`${this.url}api/CharacteristicTypes/GetTypes/${itemID}`).toPromise();
+  //}
+
+  //async getItemValues(itemID: string, typeID: string) {
+  //  return await this.http.get(`${this.url}api/CharacteristicValues/GetValues/${itemID}/${typeID}`).toPromise();
+  //}
+
+  getTypesValues(itemID: string) {
+    return this.http.get(`${this.url}api/CharacteristicTypes/GetTypesValues/${itemID}`);
   }
 
   addItemToWishList(item_ID: string, user: string) {
